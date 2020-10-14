@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MasterMind</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../CSS/Model.css">
+	<link rel="shortcut icon" type="image/x-icon" href="../Image/JZ.png">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+</head>
+<body onload="loadNewGuess()">
+	
+	<header>
+		<ul>
+			<li><a href="#MasterMind">MasterMind</a></li>
+			<li id="li_img_header"><img src="../Image/JZ.png" id="img_header" style="float: right;"></li>
+		</ul>
+	</header>
+
+	<div class="row">
+		<div class="columnThirty">
+			<div class="firstDiv">
+				<div id="divNb1" class="formDiv guess reset"></div>
+				<div id="divNb2" class="formDiv guess reset"></div>
+				<div id="divNb3" class="formDiv guess reset"></div>
+				<div id="divNb4" class="formDiv guess reset"></div>
+				<button id="checkBut" onclick="game()">Check</button>
+			</div>
+
+			<input type="radio" name="theColor" class="radioBt" value="yellow" checked>Jaune<br/>
+			<input type="radio" name="theColor" class="radioBt" value="blue">Bleu<br/>
+			<input type="radio" name="theColor" class="radioBt" value="red">Rouge<br/>
+			<input type="radio" name="theColor" class="radioBt" value="green">Vert<br/>
+			<input type="radio" name="theColor" class="radioBt" value="white">Blanc<br/>
+			<input type="radio" name="theColor" class="radioBt" value="black">Noir<br/>
+
+
+
+		</div>
+		<div class="columnFourty">
+			<script type="text/javascript">
+				for (var i = 0; i < 12; i++){
+					document.write("<div id='divLig" + i + "' class='firstDiv'>");
+					for (var j = 0; j < 4; j++){
+						document.write("<div class='L" + i + " C" + j + " formDiv2 reset'></div>")
+					}
+					document.write("<p id='textL" + i + "' class='theText'></p></div>");
+				}
+			</script>
+
+
+
+		</div>
+		<div class="columnThirty">
+			<h1 id="texteFin">Hallo</h1>
+
+			<button id="playAgain" onclick="loadNewGuess()" style="margin: 0 auto;">Rejouez?</button>
+			<h2 id="theAnsText">La réponse était :</h2>
+			<div class="firstDiv">
+				<div id="divSolNb1" class="formSolDiv reset"></div>
+				<div id="divSolNb2" class="formSolDiv reset"></div>
+				<div id="divSolNb3" class="formSolDiv reset"></div>
+				<div id="divSolNb4" class="formSolDiv reset"></div>
+			</div>
+
+
+		</div>
+
+
+	</div>
+	<script type="text/javascript">
+		//Load des couleurs
+		var theDifCol = ["yellow","blue","red","green","white","black"];
+		var theCodeToGuess;
+		function loadNewGuess(){
+			var x;
+			theCodeToGuess = [];
+			for (i = 0; i < 4; i++){
+			//Choisir un premier nombre random
+			x = Math.floor(Math.random()*6).toString();
+			//Si le nombre est déjà utilisé, reprendre un nouveau nombre
+			while (theCodeToGuess.includes(theDifCol[x])){
+				x = Math.floor(Math.random()*6).toString();
+			}
+			//Ajouter le nombre dans mon tableau des anciennes valeurs
+			theCodeToGuess.push(theDifCol[x]);
+			console.log(theCodeToGuess);
+			}
+			var allDiv = document.getElementsByClassName("reset");
+			for (i = 0; i < allDiv.length; i++){
+				allDiv[i].style.backgroundColor = "transparent";
+			}
+			Lign = 0;
+
+			var allP = document.getElementsByClassName("theText");
+			for (i = 0; i < allP.length; i++){
+				allP[i].innerHTML = "";
+			}
+			document.getElementById("texteFin").style.visibility = "hidden";
+			document.getElementById("playAgain").style.visibility = "hidden";
+
+			document.getElementById("theAnsText").style.visibility = "hidden";
+			var theDivSol = document.getElementsByClassName("formSolDiv");
+
+			for (i = 0; i < 4; i++){
+				theDivSol[i].style.visibility = "hidden"
+				theDivSol[i].style.backgroundColor = theCodeToGuess[i];
+			}
+		}
+
+		
+
+		//Check si la couleur est déjà utilisé plusieurs fois;
+		var theDivGuess = document.getElementsByClassName("guess");
+		function checkCol(){
+			var theBackground = [];
+			for (i = 0; i < theDivGuess.length; i++){
+				theBackground[i] = theDivGuess[i].style.backgroundColor;
+			}
+
+			if ((theBackground[0] == theBackground[1]) || (theBackground[0] == theBackground[2]) || (theBackground[0] == theBackground[3]) || (theBackground[1] == theBackground[2]) || (theBackground[1] == theBackground[3]) || (theBackground[2] == theBackground[3])){
+				return false;
+			}
+			return true;
+		}
+
+		var Lign = 0;
+		function game(){
+			if (checkCol()){
+				var theDivGuess = document.getElementsByClassName("guess");
+				//var color = document.getElementById("divNb1").style.backgroundColor;
+				var theDivAns = document.getElementsByClassName("L" + Lign);
+	
+				for (i = 0; i < 4; i++){
+					theDivAns[i].style.backgroundColor = theDivGuess[i].style.backgroundColor;
+				}
+				
+
+				var nbColPre = 0;
+				var nbColPos = 0;
+				//Check si la couleur est présente
+				for (var i = 0; i < 4; i++){
+					for (var j = 0; j < 4; j++){
+						if (theDivGuess[i].style.backgroundColor == theCodeToGuess[j]){
+							nbColPre++;
+						}
+					}
+				}
+				for (i = 0; i < 4; i++){
+					if (theDivGuess[i].style.backgroundColor == theCodeToGuess[i]){
+						nbColPos++;
+					}
+				}
+				nbColPre -= nbColPos;
+				
+				//console.log(nbColPre);
+				//console.log(nbColPos);
+				document.getElementById("textL" + Lign).innerHTML = nbColPos + " correcte, " + nbColPre + " correcte mal placé"; 
+				Lign++;
+				console.log(Lign);
+			}else{
+				alert("il y a plus d'une fois une couleur");
+			}
+
+			if (nbColPos == 4){
+				document.getElementById("texteFin").innerHTML = "Vous avez gagné!";
+				document.getElementById("texteFin").style.visibility = "visible";
+				document.getElementById("playAgain").style.visibility = "visible";
+			}else{
+				if (Lign == 12){
+					document.getElementById("texteFin").innerHTML = "Vous avez perdu!";
+					document.getElementById("texteFin").style.visibility = "visible";
+					document.getElementById("playAgain").style.visibility = "visible";
+					document.getElementById("theAnsText").style.visibility = "visible";
+					var theDivSol = document.getElementsByClassName("formSolDiv");
+
+					for (i = 0; i < 4; i++){
+						theDivSol[i].style.visibility = "visible"
+						theDivSol[i].style.backgroundColor = theCodeToGuess[i];
+					}
+				}
+			}
+		}
+
+
+
+	</script>
+
+
+	<script type="text/javascript">
+		//Mettre une valeur à tout les backgrounds color des divs clickable
+		var theDivGuess = document.getElementsByClassName("guess");
+		for (var i = 0; i < theDivGuess.length; i++){
+			theDivGuess[i].style.backgroundColor = "transparent";
+		}
+
+		/*function checkCol(thecolor){
+			var theBackground = [];
+			for (i = 0; i < theDivGuess.length; i++){
+				theBackground[i] = theDivGuess[i].style.backgroundColor;
+			}
+			if (theBackground.includes(theColor)){
+				return false;
+			}
+			return true;
+		}*/
+		
+		//Rendre mes divs clickables et leur ajouter un background-color
+		$("#divNb1").click(function(){
+			var theDiv = document.getElementById("divNb1");
+			var theColorTab = document.getElementsByName('theColor');
+			var theColor;
+			for (var i = 0; i < theColorTab.length; i++){
+				if(theColorTab[i].checked){
+					theColor = theColorTab[i].value;
+					break;
+				}
+			}		
+			theDiv.style.backgroundColor = theColor;
+		});
+
+		$("#divNb2").click(function(){
+			var theDiv = document.getElementById("divNb2");
+			var theColorTab = document.getElementsByName('theColor');
+			var theColor;
+			for (var i = 0; i < theColorTab.length; i++){
+				if(theColorTab[i].checked){
+					theColor = theColorTab[i].value;
+					break;
+				}
+			}		
+				theDiv.style.backgroundColor = theColor;
+		});
+
+		$("#divNb3").click(function(){
+			var theDiv = document.getElementById("divNb3");
+			var theColorTab = document.getElementsByName('theColor');
+			var theColor;
+			for (var i = 0; i < theColorTab.length; i++){
+				if(theColorTab[i].checked){
+					theColor = theColorTab[i].value;
+					break;
+				}
+			}	
+				theDiv.style.backgroundColor = theColor;
+		});
+
+		$("#divNb4").click(function(){
+			var theDiv = document.getElementById("divNb4");
+			var theColorTab = document.getElementsByName('theColor');
+			var theColor;
+			for (var i = 0; i < theColorTab.length; i++){
+				if(theColorTab[i].checked){
+					theColor = theColorTab[i].value;
+					break;
+				}
+			}		
+				theDiv.style.backgroundColor = theColor;
+		});
+	</script>
+	<footer>
+		<div id="div_footer">
+			<p>Jeffrey Zumkir</p>
+			<p>Contact information: <a href="mailto:j.zumkir@ludus-academie.com">j.zumkir@ludus-academie.com</a></p>
+			<p style="text-align: right;"><a href="">Source</a></p>
+		</div>
+	</footer>
+</body>
+</html>

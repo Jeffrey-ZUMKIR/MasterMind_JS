@@ -1,0 +1,135 @@
+*{
+	font-size: 18px
+}
+body{
+	background-image: linear-gradient(lightblue, blue);
+	/*background: repeating-radial-gradient(farthest-side ellipse at center, green, red, green 80px);*/
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	/*background-size: 1920px 800px;*/
+}
+
+header ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+header ul li {
+  float: left;
+}
+header ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+header ul li a:hover {
+  background-color: #111;
+}
+#li_img_header{
+	float: right;
+}
+#img_header {
+	height: 50px;
+}
+
+footer {
+  display: block;
+  background: lightblue;
+  color: black;
+  bottom: 10px;
+  width: 100%;
+}
+
+#div_footer {
+	border: groove 5px blue;
+}
+
+.columnFourty {
+  float: left;
+  width: 40%;
+  padding: 5px;
+  border: solid black 1px;
+  box-sizing: border-box;
+  background-image: linear-gradient(lightgrey, grey);
+  background-attachment: fixed;
+}
+
+.columnThirty {
+  float: left;
+  width: 29%;
+  padding: 5px;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/*Jeu---------------------------------------*/
+
+.radioBt{
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.firstDiv{
+  display: flex;
+}
+
+.formDiv{
+  border: solid black 1px;
+  border-radius: 60%;
+
+  width: 80px;
+  height: 80px;
+  margin: 5px 5px;
+
+  flex-wrap: wrap;
+  box-shadow: 2px 2px 2px 1px;
+}
+
+.formSolDiv{
+  border: solid black 1px;
+  border-radius: 60%;
+
+  width: 80px;
+  height: 80px;
+  margin: 5px 5px;
+
+  flex-wrap: wrap;
+  box-shadow: 2px 2px 2px 1px;
+}
+
+.formDiv:hover{
+  opacity: 50%;
+}
+
+.guess{
+    background-color: transparent;
+}
+
+.formDiv2{
+  border: solid black 1px;
+  border-radius: 60%;
+
+  width: 40px;
+  height: 40px;
+  margin: 5px 20px;
+
+  flex-wrap: wrap;
+  box-shadow: 2px 2px 2px 1px;
+}
+
+#texteFin{
+  visibility: hidden;
+  font-size: 3em;
+}
+
+.theText{
+  margin-block-end: 0;
+}

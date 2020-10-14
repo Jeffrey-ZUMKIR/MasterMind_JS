@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Menu</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="./CSS/Model.css">
+	<link rel="shortcut icon" type="image/x-icon" href="./Image/JZ.png">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<style type="text/css">
+		#DivBody{
+			height: 500px;
+			padding: 5% 50px 50px 50px;
+
+		}
+
+		#title{
+			text-align: center;
+			font-size: 3em;
+		}
+
+		#startGame{
+			margin: 0px auto;
+			width: 20%;
+			text-align: center;
+			font-size: 2em;
+			border: grey outset 10px;
+			box-sizing: border-box;
+		}
+		#startGame:hover{
+			color: red;
+			
+		}
+
+		#startGame:active{
+			color: red;
+			border: grey inset 10px;
+		}
+
+		footer{
+			position: fixed;
+   			left: 0;
+   			bottom: 0;
+		}
+
+	</style>
+</head>
+<body>
+	
+	<header>
+		<ul>
+			<li><a href="#MasterMind">MasterMind</a></li>
+			<li id="li_img_header"><img src="./Image/JZ.png" id="img_header" style="float: right;"></li>
+		</ul>
+	</header>
+
+	<div id="DivBody">
+		<h1 id="title">MasterMind</h1>
+		<div id="startGame">Cliquer pour commencer</div>
+	</div>
+
+	<script type="text/javascript">
+		$("#startGame").click(function(){
+			window.location.href = "./HTML/Game.html";
+		});
+	</script>
+
+	<footer>
+		<div id="div_footer">
+			<p>Jeffrey Zumkir</p>
+			<p>Contact information: <a href="mailto:j.zumkir@ludus-academie.com">j.zumkir@ludus-academie.com</a></p>
+			<p style="text-align: right;"><a href="">Source</a></p>
+		</div>
+	</footer>
+</body>
+</html>
