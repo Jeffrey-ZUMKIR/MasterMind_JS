@@ -71,6 +71,8 @@
 		//Load des couleurs
 		var theDifCol = ["yellow","blue","red","green","white","black"];
 		var theCodeToGuess;
+
+		//Fonction pour générer des nombres randoms qui sont liés à une couleur
 		function loadNewGuess(){
 			var x;
 			theCodeToGuess = [];
@@ -85,19 +87,23 @@
 			theCodeToGuess.push(theDifCol[x]);
 			console.log(theCodeToGuess);
 			}
+			//Remettre tout les divs en transparent
 			var allDiv = document.getElementsByClassName("reset");
 			for (i = 0; i < allDiv.length; i++){
 				allDiv[i].style.backgroundColor = "transparent";
 			}
 			Lign = 0;
 
+			//Rendre les textes explicatifs vident
 			var allP = document.getElementsByClassName("theText");
 			for (i = 0; i < allP.length; i++){
 				allP[i].innerHTML = "";
 			}
+			//Rendre les textes de fin invisible
 			document.getElementById("texteFin").style.visibility = "hidden";
 			document.getElementById("playAgain").style.visibility = "hidden";
 
+			//Rendre la solution invisible
 			document.getElementById("theAnsText").style.visibility = "hidden";
 			var theDivSol = document.getElementsByClassName("formSolDiv");
 
@@ -124,6 +130,7 @@
 		}
 
 		var Lign = 0;
+		//Lancement du test pour check si on se rapproche de la solution
 		function game(){
 			if (checkCol()){
 				var theDivGuess = document.getElementsByClassName("guess");
@@ -161,11 +168,13 @@
 				alert("il y a plus d'une fois une couleur");
 			}
 
+			//Check victoire
 			if (nbColPos == 4){
 				document.getElementById("texteFin").innerHTML = "Vous avez gagné!";
 				document.getElementById("texteFin").style.visibility = "visible";
 				document.getElementById("playAgain").style.visibility = "visible";
 			}else{
+				//Check game over
 				if (Lign == 12){
 					document.getElementById("texteFin").innerHTML = "Vous avez perdu!";
 					document.getElementById("texteFin").style.visibility = "visible";
@@ -193,16 +202,6 @@
 			theDivGuess[i].style.backgroundColor = "transparent";
 		}
 
-		/*function checkCol(thecolor){
-			var theBackground = [];
-			for (i = 0; i < theDivGuess.length; i++){
-				theBackground[i] = theDivGuess[i].style.backgroundColor;
-			}
-			if (theBackground.includes(theColor)){
-				return false;
-			}
-			return true;
-		}*/
 		
 		//Rendre mes divs clickables et leur ajouter un background-color
 		$("#divNb1").click(function(){
